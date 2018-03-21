@@ -1,0 +1,65 @@
+<template>
+  <div ref="wrapper">
+    <slot></slot>
+</div>
+</template>
+
+<script>
+import BScroll from "Better-scroll"
+export default {
+  props: {
+    probeType: {
+      type: Number,
+      default: 1
+    },
+    click: {
+      type: Boolean,
+      default: true
+    },
+    data: {
+      type: Array,
+      default: null
+    }
+  },
+  data () {
+    return {
+    };
+  },
+  mounted() {
+    setTimeout(()=>{
+      this._initScroll()
+    },20)
+  },
+
+  methods: {
+    _initScroll(){
+      if(!this.$refs.wrapper){
+        return
+      }
+      this.scroll = new BScroll(this.$refs.wrapper,{
+        probeType: this.probeType,
+        click: this.click
+      })
+    },
+    enable(){
+      this.scroll.enable()
+    },
+    disable(){
+      this.scroll.disable()
+    },
+    refresh(){
+      this.scroll.refresh()
+    }
+  },
+  watch: {
+    data(){
+      setTimeout(()=>{
+        this.refresh();
+      },20)
+    }
+  }
+}
+
+</script>
+<style scoped lang='stylus' rel='stylesheet/stylus'>
+</style>
